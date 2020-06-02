@@ -15,13 +15,13 @@ import pickle
 from sklearn.linear_model import LinearRegression
 
 # Fetch training data and preprocess for modeling
-train = pd.read_csv('data/train_data.csv')
-riders = pd.read_csv('data/riders.csv')
+train = pd.read_csv('Datasets/Train.csv')
+riders = pd.read_csv('Datasets/Riders.csv')
 train = train.merge(riders, how='left', on='Rider Id')
 
 y_train = train[['Time from Pickup to Arrival']]
-X_train = train[['Pickup Lat','Pickup Long',
-                 'Destination Lat','Destination Long']]
+X_train = train[['Experience', 'Distance (KM)', 'Temperature', 'No_Of_Orders',
+               'Pickup - Day of Month', 'Pickup - Weekday (Mo = 1)']]
 
 # Fit model
 lm_regression = LinearRegression(normalize=True)
@@ -29,6 +29,6 @@ print ("Training Model...")
 lm_regression.fit(X_train, y_train)
 
 # Pickle model for use within our API
-save_path = '../trained-models/sendy_simple_lm_regression.pkl'
+save_path = '../trained-models/final_model.pkl'
 print (f"Training completed. Saving model to: {save_path}")
 pickle.dump(lm_regression, open(save_path,'wb'))
