@@ -21,7 +21,7 @@ train = train.merge(riders, how='left', on='Rider Id')
 
 y_train = train[['Time from Pickup to Arrival']]
 X_train = train[['Pickup Lat','Pickup Long',
-                 'Destination Lat']]
+                 'Destination Lat','Destination Long']]
 
 # Fit model
 lm_regression = LinearRegression(normalize=True)
